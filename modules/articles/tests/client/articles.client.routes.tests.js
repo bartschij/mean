@@ -1,10 +1,10 @@
 (function () {
   'use strict';
 
-  describe('Articles Route Tests', function () {
+  describe('articles Route Tests', function () {
     // Initialize global variables
     var $scope,
-      ArticlesService;
+      articlesService;
 
     // We can start by loading the main application module
     beforeEach(module(ApplicationConfiguration.applicationModuleName));
@@ -12,10 +12,10 @@
     // The injector ignores leading and trailing underscores here (i.e. _$httpBackend_).
     // This allows us to inject a service but then attach it to a variable
     // with the same name as the service.
-    beforeEach(inject(function ($rootScope, _ArticlesService_) {
+    beforeEach(inject(function ($rootScope, _articlesService_) {
       // Set a new global scope
       $scope = $rootScope.$new();
-      ArticlesService = _ArticlesService_;
+      articlesService = _articlesService_;
     }));
 
     describe('Route Config', function () {
@@ -59,24 +59,24 @@
 
       describe('View Route', function () {
         var viewstate,
-          ArticlesController,
-          mockArticle;
+          articlesController,
+          mockarticle;
 
         beforeEach(inject(function ($controller, $state, $templateCache) {
           viewstate = $state.get('articles.view');
           $templateCache.put('/modules/articles/client/views/view-article.client.view.html', '');
 
           // create mock article
-          mockArticle = new ArticlesService({
+          mockarticle = new articlesService({
             _id: '525a8422f6d0f87f0e407a33',
-            title: 'An Article about MEAN',
+            title: 'An article about MEAN',
             content: 'MEAN rocks!'
           });
 
           // Initialize Controller
-          ArticlesController = $controller('ArticlesController as vm', {
+          articlesController = $controller('articlesController as vm', {
             $scope: $scope,
-            articleResolve: mockArticle
+            articleResolve: mockarticle
           });
         }));
 
@@ -96,7 +96,7 @@
         }));
 
         it('should attach an article to the controller scope', function () {
-          expect($scope.vm.article._id).toBe(mockArticle._id);
+          expect($scope.vm.article._id).toBe(mockarticle._id);
         });
 
         it('Should not be abstract', function () {

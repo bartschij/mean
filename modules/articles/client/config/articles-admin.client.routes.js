@@ -17,7 +17,7 @@
       .state('admin.articles.list', {
         url: '',
         templateUrl: '/modules/articles/client/views/admin/list-articles.client.view.html',
-        controller: 'ArticlesAdminListController',
+        controller: 'articlesAdminListController',
         controllerAs: 'vm',
         data: {
           roles: ['admin']
@@ -26,41 +26,41 @@
       .state('admin.articles.create', {
         url: '/create',
         templateUrl: '/modules/articles/client/views/admin/form-article.client.view.html',
-        controller: 'ArticlesAdminController',
+        controller: 'articlesAdminController',
         controllerAs: 'vm',
         data: {
           roles: ['admin']
         },
         resolve: {
-          articleResolve: newArticle
+          articleResolve: newarticle
         }
       })
       .state('admin.articles.edit', {
         url: '/:articleId/edit',
         templateUrl: '/modules/articles/client/views/admin/form-article.client.view.html',
-        controller: 'ArticlesAdminController',
+        controller: 'articlesAdminController',
         controllerAs: 'vm',
         data: {
           roles: ['admin'],
           pageTitle: '{{ articleResolve.title }}'
         },
         resolve: {
-          articleResolve: getArticle
+          articleResolve: getarticle
         }
       });
   }
 
-  getArticle.$inject = ['$stateParams', 'ArticlesService'];
+  getarticle.$inject = ['$stateParams', 'articlesService'];
 
-  function getArticle($stateParams, ArticlesService) {
-    return ArticlesService.get({
+  function getarticle($stateParams, articlesService) {
+    return articlesService.get({
       articleId: $stateParams.articleId
     }).$promise;
   }
 
-  newArticle.$inject = ['ArticlesService'];
+  newarticle.$inject = ['articlesService'];
 
-  function newArticle(ArticlesService) {
-    return new ArticlesService();
+  function newarticle(articlesService) {
+    return new articlesService();
   }
 }());

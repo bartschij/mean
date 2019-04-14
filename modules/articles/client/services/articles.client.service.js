@@ -3,12 +3,12 @@
 
   angular
     .module('articles.services')
-    .factory('ArticlesService', ArticlesService);
+    .factory('articlesService', articlesService);
 
-  ArticlesService.$inject = ['$resource', '$log'];
+  articlesService.$inject = ['$resource', '$log'];
 
-  function ArticlesService($resource, $log) {
-    var Article = $resource('/api/articles/:articleId', {
+  function articlesService($resource, $log) {
+    var article = $resource('/api/articles/:articleId', {
       articleId: '@_id'
     }, {
       update: {
@@ -16,14 +16,14 @@
       }
     });
 
-    angular.extend(Article.prototype, {
+    angular.extend(article.prototype, {
       createOrUpdate: function () {
         var article = this;
         return createOrUpdate(article);
       }
     });
 
-    return Article;
+    return article;
 
     function createOrUpdate(article) {
       if (article._id) {

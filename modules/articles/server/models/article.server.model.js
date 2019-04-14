@@ -10,9 +10,9 @@ var mongoose = require('mongoose'),
   chalk = require('chalk');
 
 /**
- * Article Schema
+ * article Schema
  */
-var ArticleSchema = new Schema({
+var articleSchema = new Schema({
   created: {
     type: Date,
     default: Date.now
@@ -34,16 +34,16 @@ var ArticleSchema = new Schema({
   }
 });
 
-ArticleSchema.statics.seed = seed;
+articleSchema.statics.seed = seed;
 
-mongoose.model('Article', ArticleSchema);
+mongoose.model('article', articleSchema);
 
 /**
-* Seeds the User collection with document (Article)
+* Seeds the User collection with document (article)
 * and provided options.
 */
 function seed(doc, options) {
-  var Article = mongoose.model('Article');
+  var article = mongoose.model('article');
 
   return new Promise(function (resolve, reject) {
 
@@ -83,7 +83,7 @@ function seed(doc, options) {
 
     function skipDocument() {
       return new Promise(function (resolve, reject) {
-        Article
+        article
           .findOne({
             title: doc.title
           })
@@ -100,7 +100,7 @@ function seed(doc, options) {
               return resolve(true);
             }
 
-            // Remove Article (overwrite)
+            // Remove article (overwrite)
 
             existing.remove(function (err) {
               if (err) {
@@ -117,11 +117,11 @@ function seed(doc, options) {
       return new Promise(function (resolve, reject) {
         if (skip) {
           return resolve({
-            message: chalk.yellow('Database Seeding: Article\t' + doc.title + ' skipped')
+            message: chalk.yellow('Database Seeding: article\t' + doc.title + ' skipped')
           });
         }
 
-        var article = new Article(doc);
+        var article = new article(doc);
 
         article.save(function (err) {
           if (err) {
@@ -129,7 +129,7 @@ function seed(doc, options) {
           }
 
           return resolve({
-            message: 'Database Seeding: Article\t' + article.title + ' added'
+            message: 'Database Seeding: article\t' + article.title + ' added'
           });
         });
       });

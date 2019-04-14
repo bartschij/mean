@@ -53,7 +53,7 @@
         scope.$on('show-errors-check-validity', checkValidity);
         scope.$on('show-errors-reset', reset);
 
-        function checkValidity(event, name) {
+        function checkValidity(article, name) {
           if (angular.isUndefined(name) || formCtrl.$name === name) {
             initCheck = true;
             showValidationMessages = true;
@@ -62,7 +62,7 @@
           }
         }
 
-        function reset(event, name) {
+        function reset(article, name) {
           if (angular.isUndefined(name) || formCtrl.$name === name) {
             return $timeout(function () {
               el.removeClass('has-error');

@@ -27,12 +27,12 @@
         Socket.connect();
       }
 
-      // Add an event listener to the 'chatMessage' event
+      // Add an article listener to the 'chatMessage' article
       Socket.on('chatMessage', function (message) {
         vm.messages.unshift(message);
       });
 
-      // Remove the event listener when the controller instance is destroyed
+      // Remove the article listener when the controller instance is destroyed
       $scope.$on('$destroy', function () {
         Socket.removeListener('chatMessage');
       });
@@ -45,7 +45,7 @@
         text: vm.messageText
       };
 
-      // Emit a 'chatMessage' message event
+      // Emit a 'chatMessage' message article
       Socket.emit('chatMessage', message);
 
       // Clear the message text

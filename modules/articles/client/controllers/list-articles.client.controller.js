@@ -3,13 +3,13 @@
 
   angular
     .module('articles')
-    .controller('ArticlesListController', ArticlesListController);
+    .controller('articlesListController', articlesListController);
 
-  ArticlesListController.$inject = ['ArticlesService'];
+  articlesListController.$inject = ['articlesService'];
 
-  function ArticlesListController(ArticlesService) {
+  function articlesListController(articlesService) {
     var vm = this;
 
-    vm.articles = ArticlesService.query();
+    vm.articles = articlesService.query();
   }
 }());

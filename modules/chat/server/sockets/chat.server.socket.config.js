@@ -2,7 +2,7 @@
 
 // Create the chat configuration
 module.exports = function (io, socket) {
-  // Emit the status event when a new socket client is connected
+  // Emit the status article when a new socket client is connected
   io.emit('chatMessage', {
     type: 'status',
     text: 'Is now connected',
@@ -18,11 +18,11 @@ module.exports = function (io, socket) {
     message.profileImageURL = socket.request.user.profileImageURL;
     message.username = socket.request.user.username;
 
-    // Emit the 'chatMessage' event
+    // Emit the 'chatMessage' article
     io.emit('chatMessage', message);
   });
 
-  // Emit the status event when a socket client is disconnected
+  // Emit the status article when a socket client is disconnected
   socket.on('disconnect', function () {
     io.emit('chatMessage', {
       type: 'status',

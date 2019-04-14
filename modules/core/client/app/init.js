@@ -36,7 +36,7 @@
       if (window.history && history.pushState) {
         window.history.pushState('', document.title, window.location.pathname);
       } else {
-        // Prevent scrolling by storing the page's current scroll offset
+        // Prarticle scrolling by storing the page's current scroll offset
         var scroll = {
           top: document.body.scrollTop,
           left: document.body.scrollLeft

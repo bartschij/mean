@@ -14,7 +14,7 @@ var _ = require('lodash'),
   logger = require(path.resolve('./config/lib/logger')),
   seed = require(path.resolve('./config/lib/mongo-seed')),
   express = require(path.resolve('./config/lib/express')),
-  Article = mongoose.model('Article');
+  article = mongoose.model('article');
 
 /**
  * Globals
@@ -55,12 +55,12 @@ describe('Configuration Tests:', function () {
       };
 
       _article = {
-        title: 'Testing Database Seed Article',
-        content: 'Testing Article Seed right now!'
+        title: 'Testing Database Seed article',
+        content: 'Testing article Seed right now!'
       };
 
       var articleCollections = _.filter(_seedConfig.collections, function (collection) {
-        return collection.model === 'Article';
+        return collection.model === 'article';
       });
 
       // articleCollections.should.be.instanceof(Array).and.have.lengthOf(1);
@@ -77,7 +77,7 @@ describe('Configuration Tests:', function () {
     });
 
     afterEach(function (done) {
-      Article.remove().exec()
+      article.remove().exec()
         .then(function () {
           return User.remove().exec();
         })
@@ -121,8 +121,8 @@ describe('Configuration Tests:', function () {
 
       seed.start()
         .then(function () {
-          // Check Articles Seed
-          return Article.find().exec();
+          // Check articles Seed
+          return article.find().exec();
         })
         .then(function (articles) {
           articles.should.be.instanceof(Array).and.have.lengthOf(articleSeedConfig.docs.length);
@@ -139,7 +139,7 @@ describe('Configuration Tests:', function () {
     it('should overwrite existing article by default', function (done) {
       articleSeedConfig.docs.should.be.instanceof(Array).and.have.lengthOf(1);
 
-      var article = new Article(articleSeedConfig.docs[0].data);
+      var article = new article(articleSeedConfig.docs[0].data);
       article.content = '_temp_test_article_';
 
       // save temp article
@@ -148,14 +148,14 @@ describe('Configuration Tests:', function () {
           return seed.start();
         })
         .then(function () {
-          return Article.find().exec();
+          return article.find().exec();
         })
         .then(function (articles) {
           articles.should.be.instanceof(Array).and.have.lengthOf(1);
 
-          var newArticle = articles.pop();
-          articleSeedConfig.docs[0].data.title.should.equal(newArticle.title);
-          articleSeedConfig.docs[0].data.content.should.equal(newArticle.content);
+          var newarticle = articles.pop();
+          articleSeedConfig.docs[0].data.title.should.equal(newarticle.title);
+          articleSeedConfig.docs[0].data.content.should.equal(newarticle.content);
 
           return done();
         })
@@ -220,7 +220,7 @@ describe('Configuration Tests:', function () {
       seed
         .start({
           collections: [{
-            model: 'Article',
+            model: 'article',
             docs: [{
               overwrite: true,
               data: _article
@@ -228,14 +228,14 @@ describe('Configuration Tests:', function () {
           }]
         })
         .then(function () {
-          return Article.find().exec();
+          return article.find().exec();
         })
         .then(function (articles) {
           articles.should.be.instanceof(Array).and.have.lengthOf(1);
 
-          var newArticle = articles.pop();
-          _article.title.should.equal(newArticle.title);
-          _article.content.should.equal(newArticle.content);
+          var newarticle = articles.pop();
+          _article.title.should.equal(newarticle.title);
+          _article.content.should.equal(newarticle.content);
 
           return done();
         })
@@ -251,7 +251,7 @@ describe('Configuration Tests:', function () {
               data: _admin
             }]
           }, {
-            model: 'Article',
+            model: 'article',
             docs: [{
               overwrite: true,
               data: _article
@@ -264,7 +264,7 @@ describe('Configuration Tests:', function () {
         .then(function (users) {
           users.should.be.instanceof(Array).and.have.lengthOf(1);
 
-          return Article
+          return article
             .find()
             .populate('user', 'firstName lastName username email roles')
             .exec();
@@ -272,20 +272,20 @@ describe('Configuration Tests:', function () {
         .then(function (articles) {
           articles.should.be.instanceof(Array).and.have.lengthOf(1);
 
-          var newArticle = articles.pop();
-          _article.title.should.equal(newArticle.title);
-          _article.content.should.equal(newArticle.content);
+          var newarticle = articles.pop();
+          _article.title.should.equal(newarticle.title);
+          _article.content.should.equal(newarticle.content);
 
-          should.exist(newArticle.user);
-          should.exist(newArticle.user._id);
+          should.exist(newarticle.user);
+          should.exist(newarticle.user._id);
 
-          _admin.username.should.equal(newArticle.user.username);
-          _admin.email.should.equal(newArticle.user.email);
-          _admin.firstName.should.equal(newArticle.user.firstName);
-          _admin.lastName.should.equal(newArticle.user.lastName);
+          _admin.username.should.equal(newarticle.user.username);
+          _admin.email.should.equal(newarticle.user.email);
+          _admin.firstName.should.equal(newarticle.user.firstName);
+          _admin.lastName.should.equal(newarticle.user.lastName);
 
-          should.exist(newArticle.user.roles);
-          newArticle.user.roles.indexOf('admin').should.equal(_admin.roles.indexOf('admin'));
+          should.exist(newarticle.user.roles);
+          newarticle.user.roles.indexOf('admin').should.equal(_admin.roles.indexOf('admin'));
 
           return done();
         })
@@ -296,7 +296,7 @@ describe('Configuration Tests:', function () {
       seed
         .start({
           collections: [{
-            model: 'Article',
+            model: 'article',
             docs: [{
               overwrite: true,
               data: _article
@@ -314,7 +314,7 @@ describe('Configuration Tests:', function () {
         .then(function (users) {
           users.should.be.instanceof(Array).and.have.lengthOf(1);
 
-          return Article
+          return article
             .find()
             .populate('user', 'firstName lastName username email roles')
             .exec();
@@ -322,11 +322,11 @@ describe('Configuration Tests:', function () {
         .then(function (articles) {
           articles.should.be.instanceof(Array).and.have.lengthOf(1);
 
-          var newArticle = articles.pop();
-          _article.title.should.equal(newArticle.title);
-          _article.content.should.equal(newArticle.content);
+          var newarticle = articles.pop();
+          _article.title.should.equal(newarticle.title);
+          _article.content.should.equal(newarticle.content);
 
-          should.not.exist(newArticle.user);
+          should.not.exist(newarticle.user);
 
           return done();
         })
@@ -375,14 +375,14 @@ describe('Configuration Tests:', function () {
 
     it('should NOT overwrite existing article with custom options', function (done) {
 
-      var article = new Article(_article);
+      var article = new article(_article);
       article.content = '_temp_article_content_';
 
       article.save()
         .then(function () {
           return seed.start({
             collections: [{
-              model: 'Article',
+              model: 'article',
               docs: [{
                 overwrite: false,
                 data: _article
@@ -391,14 +391,14 @@ describe('Configuration Tests:', function () {
           });
         })
         .then(function () {
-          return Article.find().exec();
+          return article.find().exec();
         })
         .then(function (articles) {
           articles.should.be.instanceof(Array).and.have.lengthOf(1);
 
-          var existingArticle = articles.pop();
-          article.title.should.equal(existingArticle.title);
-          article.content.should.equal(existingArticle.content);
+          var existingarticle = articles.pop();
+          article.title.should.equal(existingarticle.title);
+          article.content.should.equal(existingarticle.content);
 
           return done();
         })
@@ -445,7 +445,7 @@ describe('Configuration Tests:', function () {
       seed
         .start({
           collections: [{
-            model: 'Article',
+            model: 'article',
             docs: [{
               data: invalid
             }]
@@ -453,13 +453,13 @@ describe('Configuration Tests:', function () {
         })
         .then(function () {
           // We should not make it here so we
-          // force an assert failure to prevent hangs.
+          // force an assert failure to prarticle hangs.
           should.exist(undefined);
           return done();
         })
         .catch(function (err) {
           should.exist(err);
-          err.message.should.equal('Article validation failed: title: Title cannot be blank');
+          err.message.should.equal('article validation failed: title: Title cannot be blank');
 
           return done();
         });
@@ -480,7 +480,7 @@ describe('Configuration Tests:', function () {
         })
         .then(function () {
           // We should not make it here so we
-          // force an assert failure to prevent hangs.
+          // force an assert failure to prarticle hangs.
           should.exist(undefined);
           return done();
         })
@@ -507,7 +507,7 @@ describe('Configuration Tests:', function () {
         })
         .then(function () {
           // We should not make it here so we
-          // force an assert failure to prevent hangs.
+          // force an assert failure to prarticle hangs.
           should.exist(undefined);
           return done();
         })
@@ -534,7 +534,7 @@ describe('Configuration Tests:', function () {
         })
         .then(function () {
           // We should not make it here so we
-          // force an assert failure to prevent hangs.
+          // force an assert failure to prarticle hangs.
           should.exist(undefined);
           return done();
         })
@@ -552,7 +552,7 @@ describe('Configuration Tests:', function () {
           collections: []
         })
         .then(function () {
-          return Article.find().exec();
+          return article.find().exec();
         })
         .then(function (articles) {
           articles.should.be.instanceof(Array).and.have.lengthOf(0);
@@ -571,12 +571,12 @@ describe('Configuration Tests:', function () {
       seed
         .start({
           collections: [{
-            model: 'Article',
+            model: 'article',
             docs: []
           }]
         })
         .then(function () {
-          return Article.find().exec();
+          return article.find().exec();
         })
         .then(function (articles) {
           articles.should.be.instanceof(Array).and.have.lengthOf(0);
@@ -595,7 +595,7 @@ describe('Configuration Tests:', function () {
       seed
         .start({
           collections: [{
-            model: 'Article',
+            model: 'article',
             skip: {
               when: { title: 'should-not-find-this-title' }
             },
@@ -605,14 +605,14 @@ describe('Configuration Tests:', function () {
           }]
         })
         .then(function () {
-          return Article.find().exec();
+          return article.find().exec();
         })
         .then(function (articles) {
           articles.should.be.instanceof(Array).and.have.lengthOf(1);
 
-          var newArticle = articles.pop();
-          _article.title.should.be.equal(newArticle.title);
-          _article.content.should.be.equal(newArticle.content);
+          var newarticle = articles.pop();
+          _article.title.should.be.equal(newarticle.title);
+          _article.content.should.be.equal(newarticle.content);
 
           return done();
         })
@@ -620,7 +620,7 @@ describe('Configuration Tests:', function () {
     });
 
     it('should skip seed on collection with custom options & skip.when has results', function (done) {
-      var article = new Article({
+      var article = new article({
         title: 'temp-article-title',
         content: 'temp-article-content'
       });
@@ -628,20 +628,20 @@ describe('Configuration Tests:', function () {
       article
         .save()
         .then(function () {
-          return Article.find().exec();
+          return article.find().exec();
         })
         .then(function (articles) {
           articles.should.be.instanceof(Array).and.have.lengthOf(1);
 
-          var newArticle = articles.pop();
-          article.title.should.equal(newArticle.title);
-          article.content.should.equal(newArticle.content);
+          var newarticle = articles.pop();
+          article.title.should.equal(newarticle.title);
+          article.content.should.equal(newarticle.content);
 
           return seed.start({
             collections: [{
-              model: 'Article',
+              model: 'article',
               skip: {
-                when: { title: newArticle.title }
+                when: { title: newarticle.title }
               },
               docs: [{
                 data: _article
@@ -650,15 +650,15 @@ describe('Configuration Tests:', function () {
           });
         })
         .then(function () {
-          return Article.find().exec();
+          return article.find().exec();
         })
         .then(function (articles) {
           // We should have the same article added at start of this unit test.
           articles.should.be.instanceof(Array).and.have.lengthOf(1);
 
-          var existingArticle = articles.pop();
-          article.title.should.equal(existingArticle.title);
-          article.content.should.equal(existingArticle.content);
+          var existingarticle = articles.pop();
+          article.title.should.equal(existingarticle.title);
+          article.content.should.equal(existingarticle.content);
 
           return done();
         })
@@ -669,7 +669,7 @@ describe('Configuration Tests:', function () {
       seed
         .start({
           collections: [{
-            model: 'Article',
+            model: 'article',
             skip: {
               when: { created: 'not-a-valid-date' }
             },

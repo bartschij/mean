@@ -5,7 +5,7 @@ var should = require('should'),
   path = require('path'),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
-  Article = mongoose.model('Article'),
+  article = mongoose.model('article'),
   express = require(path.resolve('./config/lib/express'));
 
 /**
@@ -18,9 +18,9 @@ var app,
   article;
 
 /**
- * Article routes tests
+ * article routes tests
  */
-describe('Article CRUD tests', function () {
+describe('article CRUD tests', function () {
 
   before(function (done) {
     // Get application
@@ -52,8 +52,8 @@ describe('Article CRUD tests', function () {
     user.save()
       .then(function () {
         article = {
-          title: 'Article Title',
-          content: 'Article Content'
+          title: 'article Title',
+          content: 'article Content'
         };
 
         done();
@@ -114,7 +114,7 @@ describe('Article CRUD tests', function () {
 
   it('should be able to get a list of articles if not signed in', function (done) {
     // Create new article model instance
-    var articleObj = new Article(article);
+    var articleObj = new article(article);
 
     // Save the article
     articleObj.save(function () {
@@ -133,7 +133,7 @@ describe('Article CRUD tests', function () {
 
   it('should be able to get a single article if not signed in', function (done) {
     // Create new article model instance
-    var articleObj = new Article(article);
+    var articleObj = new article(article);
 
     // Save the article
     articleObj.save(function () {
@@ -153,7 +153,7 @@ describe('Article CRUD tests', function () {
     agent.get('/api/articles/test')
       .end(function (req, res) {
         // Set assertion
-        res.body.should.be.instanceof(Object).and.have.property('message', 'Article is invalid');
+        res.body.should.be.instanceof(Object).and.have.property('message', 'article is invalid');
 
         // Call the assertion callback
         done();
@@ -197,7 +197,7 @@ describe('Article CRUD tests', function () {
     article.user = user;
 
     // Create new article model instance
-    var articleObj = new Article(article);
+    var articleObj = new article(article);
 
     // Save the article
     articleObj.save(function () {
@@ -305,7 +305,7 @@ describe('Article CRUD tests', function () {
 
   it('should be able to get a single article if not signed in and verify the custom "isCurrentUserOwner" field is set to "false"', function (done) {
     // Create new article model instance
-    var articleObj = new Article(article);
+    var articleObj = new article(article);
 
     // Save the article
     articleObj.save(function (err) {
@@ -331,7 +331,7 @@ describe('Article CRUD tests', function () {
       password: 'M3@n.jsI$Aw3$0m3'
     };
 
-    // Create user that will create the Article
+    // Create user that will create the article
     var _articleOwner = new User({
       firstName: 'Full',
       lastName: 'Name',
@@ -349,7 +349,7 @@ describe('Article CRUD tests', function () {
         return done(err);
       }
 
-      // Sign in with the user that will create the Article
+      // Sign in with the user that will create the article
       agent.post('/api/auth/signin')
         .send(_creds)
         .expect(200)
@@ -412,7 +412,7 @@ describe('Article CRUD tests', function () {
   });
 
   afterEach(function (done) {
-    Article.remove().exec()
+    article.remove().exec()
       .then(User.remove().exec())
       .then(done())
       .catch(done);

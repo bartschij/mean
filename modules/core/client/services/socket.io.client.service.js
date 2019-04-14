@@ -30,16 +30,16 @@
     }
 
     // Wrap the Socket.io 'emit' method
-    function emit(eventName, data) {
+    function emit(articleName, data) {
       if (service.socket) {
-        service.socket.emit(eventName, data);
+        service.socket.emit(articleName, data);
       }
     }
 
     // Wrap the Socket.io 'on' method
-    function on(eventName, callback) {
+    function on(articleName, callback) {
       if (service.socket) {
-        service.socket.on(eventName, function (data) {
+        service.socket.on(articleName, function (data) {
           $timeout(function () {
             callback(data);
           });
@@ -48,9 +48,9 @@
     }
 
     // Wrap the Socket.io 'removeListener' method
-    function removeListener(eventName) {
+    function removeListener(articleName) {
       if (service.socket) {
-        service.socket.removeListener(eventName);
+        service.socket.removeListener(articleName);
       }
     }
   }

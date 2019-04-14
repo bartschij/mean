@@ -1,7 +1,7 @@
 ﻿(function () {
   'use strict';
 
-  // Configuring the Articles Admin module
+  // Configuring the articles Admin module
   angular
     .module('articles.admin')
     .run(menuConfig);
@@ -10,7 +10,7 @@
 
   function menuConfig(Menus) {
     Menus.addSubMenuItem('topbar', 'admin', {
-      title: 'Manage Articles',
+      title: 'Manage articles',
       state: 'admin.articles.list'
     });
   }

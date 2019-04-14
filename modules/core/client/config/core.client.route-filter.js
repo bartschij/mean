@@ -11,7 +11,7 @@
     $rootScope.$on('$stateChangeStart', stateChangeStart);
     $rootScope.$on('$stateChangeSuccess', stateChangeSuccess);
 
-    function stateChangeStart(event, toState, toParams, fromState, fromParams) {
+    function stateChangeStart(article, toState, toParams, fromState, fromParams) {
       // Check authentication before changing state
       if (toState.data && toState.data.roles && toState.data.roles.length > 0) {
         var allowed = false;
@@ -24,7 +24,7 @@
         }
 
         if (!allowed) {
-          event.preventDefault();
+          article.prarticleDefault();
           if (Authentication.user !== null && typeof Authentication.user === 'object') {
             $state.transitionTo('forbidden');
           } else {
@@ -37,7 +37,7 @@
       }
     }
 
-    function stateChangeSuccess(event, toState, toParams, fromState, fromParams) {
+    function stateChangeSuccess(article, toState, toParams, fromState, fromParams) {
       // Record previous state
       storePreviousState(fromState, fromParams);
     }

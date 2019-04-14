@@ -3,13 +3,13 @@
 
   angular
     .module('articles.admin')
-    .controller('ArticlesAdminListController', ArticlesAdminListController);
+    .controller('articlesAdminListController', articlesAdminListController);
 
-  ArticlesAdminListController.$inject = ['ArticlesService'];
+  articlesAdminListController.$inject = ['articlesService'];
 
-  function ArticlesAdminListController(ArticlesService) {
+  function articlesAdminListController(articlesService) {
     var vm = this;
 
-    vm.articles = ArticlesService.query();
+    vm.articles = articlesService.query();
   }
 }());

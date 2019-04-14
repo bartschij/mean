@@ -105,11 +105,11 @@ module.exports = {
         }
       }]
     }, {
-      model: 'Article',
+      model: 'article',
       docs: [{
         overwrite: true,
         data: {
-          title: 'Test Article',
+          title: 'Test article',
           content: 'Code coverage test article!'
         }
       }]

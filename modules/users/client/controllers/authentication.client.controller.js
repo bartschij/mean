@@ -17,7 +17,7 @@
     vm.callOauthProvider = callOauthProvider;
     vm.usernameRegex = /^(?=[\w.-]+$)(?!.*[._-]{2})(?!\.)(?!.*\.$).{3,34}$/;
 
-    // Get an eventual error defined in the URL query string:
+    // Get an articleual error defined in the URL query string:
     if ($location.search().err) {
       Notification.error({ message: $location.search().err });
     }

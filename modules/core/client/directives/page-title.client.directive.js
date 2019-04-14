@@ -17,7 +17,7 @@
     function link(scope, element) {
       $rootScope.$on('$stateChangeSuccess', listener);
 
-      function listener(event, toState) {
+      function listener(article, toState) {
         var applicationCoreTitle = 'MEAN.js',
           separator = ' - ',
           stateTitle = applicationCoreTitle + separator;

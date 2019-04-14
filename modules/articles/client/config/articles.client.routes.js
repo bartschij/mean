@@ -17,16 +17,16 @@
       .state('articles.list', {
         url: '',
         templateUrl: '/modules/articles/client/views/list-articles.client.view.html',
-        controller: 'ArticlesListController',
+        controller: 'articlesListController',
         controllerAs: 'vm'
       })
       .state('articles.view', {
         url: '/:articleId',
         templateUrl: '/modules/articles/client/views/view-article.client.view.html',
-        controller: 'ArticlesController',
+        controller: 'articlesController',
         controllerAs: 'vm',
         resolve: {
-          articleResolve: getArticle
+          articleResolve: getarticle
         },
         data: {
           pageTitle: '{{ articleResolve.title }}'
@@ -34,10 +34,10 @@
       });
   }
 
-  getArticle.$inject = ['$stateParams', 'ArticlesService'];
+  getarticle.$inject = ['$stateParams', 'articlesService'];
 
-  function getArticle($stateParams, ArticlesService) {
-    return ArticlesService.get({
+  function getarticle($stateParams, articlesService) {
+    return articlesService.get({
       articleId: $stateParams.articleId
     }).$promise;
   }

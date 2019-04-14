@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Articles E2E Tests:', function () {
+describe('articles E2E Tests:', function () {
   describe('Test articles page', function () {
     it('Should report missing credentials', function () {
       browser.get('http://localhost:3001/articles');
