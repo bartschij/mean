@@ -9,15 +9,15 @@
 
   function menuConfig(menuService) {
     menuService.addMenuItem('topbar', {
-      title: 'articles',
+      title: 'Events',
       state: 'articles',
       type: 'dropdown',
       roles: ['*']
     });
 
     // Add the dropdown list item
-    menuService.addSubMenuItem('topbar', 'articles', {
-      title: 'List articles',
+    menuService.addSubMenuItem('topbar', 'events', {
+      title: 'List events',
       state: 'articles.list',
       roles: ['*']
     });
